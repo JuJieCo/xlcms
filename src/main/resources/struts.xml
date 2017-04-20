@@ -1,0 +1,175 @@
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<include file="struts-default.xml" />
+	<constant name="struts.objectFactory" value="spring" />
+	<package name="default"  namespace="/"  extends="json-default , jfreechart-default">
+		 
+	<interceptors>
+		 <!-- 配置自定义的拦截器 -->
+		<interceptor name="authority" class="com.jujie.xlcms.model.utils.AuthorityInterceptor" />
+		<interceptor name="encode" class="com.jujie.xlcms.model.utils.EncodeInterceptor" />
+	   <!--  拦截器栈  -->
+		<interceptor-stack name="mydefault">
+			<interceptor-ref name="defaultStack"/>
+			<interceptor-ref name="token">
+				<param name="excludeMethods">login,logout,modify*,delete*,show*</param>
+			</interceptor-ref>
+			<interceptor-ref name="authority"/>  
+			<interceptor-ref name="encode"/>
+		</interceptor-stack>
+	</interceptors> 
+	<default-interceptor-ref name="mydefault" />
+		   
+	<!--定义全局Result-->
+	<global-results>
+		<result name="login">/page/index_proxy.jsp</result>
+		<result name="invalid.token">/page/error.jsp</result>
+	</global-results>
+		
+		<!-- 权限 -->
+		
+		<action name="loginAction" class="com.jujie.xlcms.struts.action.user.LoginAction">
+			<result name="index">page/main.jsp</result>
+        </action>
+		
+		<action name="userAction" class="com.jujie.xlcms.struts.action.user.SysUserAction">
+			<result name="userlist">/page/user/userlist.jsp</result> 
+			<result name="usermodify">/page/user/usermodify.jsp</result> 
+			<result name="usermodifyrole">/page/user/usermodifyrole.jsp</result> 
+        </action>
+        
+        <action name="roleAction" class="com.jujie.xlcms.struts.action.user.SysRoleAction">
+         	<result name="rolelist">/page/user/rolelist.jsp</result>
+         	<result name="rolemodify">/page/user/rolemodify.jsp</result>
+         	<result name="rolemodifyresource">/page/user/rolemodifyresource.jsp</result>
+        </action>
+        
+		<action name="resourceAction" class="com.jujie.xlcms.struts.action.user.SysResourceAction">
+        
+        </action>
+        
+        
+      
+     
+
+		<!-- 施工单 -->
+		<action name="shiGongDanAction" class="com.jujie.xlcms.struts.action.ShiGongDanAction">
+			<result name="list">/page/shigongdan/list.jsp</result>
+			<result name="show">/page/shigongdan/show.jsp</result>
+			<result name="add">/page/shigongdan/add.jsp</result>
+			<result name="jiesuanlist">/page/shigongdan/jiesuanlist.jsp</result>
+			<result name="jiesuanupdate">/page/shigongdan/jiesuanupdate.jsp</result>
+			<result name="templist">/page/shigongdan/templist.jsp</result> 
+			<result name="tempmodify">/page/shigongdan/tempmodify.jsp</result> 
+			<result name="temptijiao">/page/shigongdan/temptijiao.jsp</result> 
+			<result name="beiliaoq">/page/shigongdan/beiliaoq.jsp</result>
+			<result name="beiliaoqq">/page/shigongdan/beiliaoqq.jsp</result>
+			<result name="beiliaolist">/page/shigongdan/beiliaolist.jsp</result>
+			<result name="infolist">/page/shigongdan/infolist.jsp</result> 
+			<result name="infomodify">/page/shigongdan/infomodify.jsp</result>
+		</action>
+		
+  		<!-- 库存 -->
+		<action name="kuCunAction" class="com.jujie.xlcms.struts.action.KuCunAction">
+			<result name="listty">/page/kucun/listty.jsp</result>
+			<result name="addty">/page/kucun/addty.jsp</result>
+			
+			<result name="listyf">/page/kucun/listyf.jsp</result>
+			<result name="addyf">/page/kucun/addyf.jsp</result>
+			
+			<result name="listzy">/page/kucun/listzy.jsp</result>
+			<result name="addzy">/page/kucun/addzy.jsp</result>
+			
+			<result name="listck">/page/kucun/listck.jsp</result>
+			<result name="addck">/page/kucun/addck.jsp</result>
+			
+			<result name="listtq">/page/kucun/listtq.jsp</result>
+			<result name="addtq">/page/kucun/addtq.jsp</result>
+			
+			<result name="tuihuo">/page/kucun/tuihuo.jsp</result>
+			<result name="jilu">/page/kucun/jilu.jsp</result>
+			
+			<result name="jilurk">/page/kucun/jilurk.jsp</result>
+			<result name="jiluck">/page/kucun/jiluck.jsp</result>
+			<result name="jiluth">/page/kucun/jiluth.jsp</result>
+			
+			<result name="updaterk">/page/kucun/updaterk.jsp</result>
+		</action>
+		
+		<!-- 报价 -->
+		<action name="baoJiaAction" class="com.jujie.xlcms.struts.action.BaoJiaAction">
+			<result name="baoliao">/page/baojia/baoliao.jsp</result>
+			<result name="baojia">/page/baojia/baojia.jsp</result>
+			<result name="beiliao">/page/baojia/beiliao.jsp</result>
+			<result name="lingliao">/page/baojia/lingliao.jsp</result>
+			<result name="baoliaolist">/page/baojia/baoliaolist.jsp</result>
+			<result name="baojialist">/page/baojia/baojialist.jsp</result>
+			<result name="beiliaolist">/page/baojia/beiliaolist.jsp</result>
+			<result name="lingliaolist">/page/baojia/lingliaolist.jsp</result>
+			<result name="buliao">/page/baojia/buliao.jsp</result>
+			<result name="buliaolist">/page/baojia/buliaolist.jsp</result>
+			<result name="tuiliao">/page/baojia/tuiliao.jsp</result>
+			<result name="beiliaomodify">/page/baojia/beiliaomodify.jsp</result>
+			
+		</action>
+		
+		<!-- 人员 -->
+		<action name="ryglAction" class="com.jujie.xlcms.struts.action.RyglAction">
+			<result name="list">/page/renyuan/list.jsp</result>
+			<result name="modify">/page/renyuan/modify.jsp</result>
+			<result name="show">/page/renyuan/show.jsp</result>
+		</action>
+		
+		<!-- 供货商 -->
+		<action name="ghsglAction" class="com.jujie.xlcms.struts.action.GhsglAction">
+			<result name="list">/page/gonghuoshang/list.jsp</result>
+			<result name="modify">/page/gonghuoshang/modify.jsp</result>
+			<result name="show">/page/gonghuoshang/show.jsp</result>
+		</action>
+     
+     	<!-- 自动补全 -->
+		<action name="autoCompleteAction" class="com.jujie.xlcms.struts.action.AutoCompleteAction">
+			<result type="json"></result>
+		</action>
+		
+		
+		<!-- 财务 -->
+		<action name="cwtzglAction" class="com.jujie.xlcms.struts.action.CwtzglAction">
+			<result name="yysrlist">/page/cwtzgl/yysrlist.jsp</result>
+			<result name="yyzclist">/page/cwtzgl/yyzclist.jsp</result>
+			
+			<result name="qtsrlist">/page/cwtzgl/qtsrlist.jsp</result>
+			<result name="qtsrmodify">/page/cwtzgl/qtsrmodify.jsp</result>
+			<result name="qtsrshow">/page/cwtzgl/qtsrshow.jsp</result>
+			
+			<result name="qtzclist">/page/cwtzgl/qtzclist.jsp</result>
+			<result name="qtzcmodify">/page/cwtzgl/qtzcmodify.jsp</result>
+			<result name="qtzcshow">/page/cwtzgl/qtzcshow.jsp</result>
+			
+		</action>
+		
+		<!-- 客户信息 -->
+		<action name="khxxAction" class="com.jujie.xlcms.struts.action.KhxxglAction">
+		
+			<result name="list">/page/khxxgl/list.jsp</result>
+			<result name="wxjllist">/page/khxxgl/wxjllist.jsp</result>
+		
+		</action>
+		
+		<!-- 高级管理 -->
+		<action name="gaoJiAction" class="com.jujie.xlcms.struts.action.GaoJiAction">
+		
+			<result name="lbcw">/page/gaoji/lbcaiwu.jsp</result>
+		
+		</action>
+	</package>
+	
+	
+	
+		
+
+	
+</struts>
+
